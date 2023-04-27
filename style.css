@@ -51,6 +51,11 @@
   box-shadow: 0 2.5px rgb(203, 182, 179);
   transform: rotateY(4px);
 }
+.active {
+  background-color: salmon;
+  box-shadow: 0 2.5px rgb(203, 182, 179);
+  transform: rotateY(4px);
+}
 .keyboard__key_more {
   width: auto;
 }

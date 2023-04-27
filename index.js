@@ -134,3 +134,14 @@ function init() {
   ).innerHTML = `<div class="keyboard__line">${out}</div>`;
 }
 init();
+document.onkeydown = function (e) {
+  console.log(e.keyCode);
+  // keyboard.push(e.keyCode);
+  // console.log(keyboard);
+  document.querySelectorAll(`.keyboard__key`).forEach(function (element) {
+    element.classList.remove("active");
+  });
+  document
+    .querySelector(`.keyboard__key[data="${e.keyCode}"]`)
+    .classList.add("active");
+};
