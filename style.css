@@ -66,36 +66,18 @@
   grid-column: span 2;
 }
 .keyboard__key:nth-child(43) {
-  grid-column: span 2;
+  grid-column: span 3;
 }
 .keyboard__key:nth-child(42) {
   grid-column: span 2;
 }
 .keyboard__key:nth-child(54) {
-  grid-column: span 3;
+  grid-column: span 2;
 }
 .keyboard__key:nth-child(58) {
   grid-column: span 7;
 }
-/* .keyboard__key:nth-child(55) {
-  grid-row: 5;
-} */
-.keyboard__key_more {
-  /* width: auto; */
-  /* grid-column: 13/13; */
-}
-.keyboard__key_row2 {
-  /* width: 78px; */
-}
-.keyboard__key_row3 {
-  /* width: 94px; */
-}
-.keyboard__key_row4 {
-  /* width: 130px; */
-}
-.keyboard__key_space {
-  /* width: 431px; */
-}
+
 .keyboard__arrow_up {
   height: 20px;
 }

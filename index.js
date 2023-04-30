@@ -126,9 +126,18 @@ init();
 document.onkeydown = function makesKeyActive(e) {
   // keyboard.push(e.keyCode);
   console.log(e.keyCode);
-  document.querySelectorAll('.keyboard__key').forEach((element) => {
-    element.classList.remove('active');
-  });
+
+  if (e.keyCode == 18 || e.keyCode == 17 || e.keyCode == 16) {
+    document
+      .querySelector(`.keyboard__key[data="${e.keyCode}"]`)
+      .classList.add('active');
+  } else {
+    document.querySelectorAll('.keyboard__key').forEach((element) => {
+      element.classList.remove('active');
+
+      // console.log(element);
+    });
+  }
   document
     .querySelector(`.keyboard__key[data="${e.keyCode}"]`)
     .classList.add('active');
