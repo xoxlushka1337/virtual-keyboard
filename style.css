@@ -8,7 +8,7 @@
 }
 .keyboard {
   font-family: Arial, Helvetica, sans-serif;
-  max-width: 1024px;
+  max-width: 1032px;
   margin: 0 auto;
   border: 1px solid burlywood;
   padding: 1px;
@@ -17,7 +17,9 @@
 }
 
 .keyboard__line {
-  display: flex;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: repeat(15, 65px);
   column-gap: 4px;
   flex-wrap: wrap;
 }
@@ -27,7 +29,7 @@
   clear: both;
 }
 .keyboard__line:after {
-  content: "";
+  content: '';
   display: block;
   clear: both;
 }
@@ -36,7 +38,7 @@
   border: 1.5px solid salmon;
   border-radius: 4px;
   margin: 6px 3px;
-  width: 40px;
+  /* width: 40px; */
   height: 40px;
   padding: 0 9px;
   display: flex;
@@ -56,25 +58,46 @@
   box-shadow: 0 2.5px rgb(203, 182, 179);
   transform: rotateY(4px);
 }
+
+.keyboard__key:nth-child(14) {
+  grid-column: span 2;
+}
+.keyboard__key:nth-child(30) {
+  grid-column: span 2;
+}
+.keyboard__key:nth-child(43) {
+  grid-column: span 2;
+}
+.keyboard__key:nth-child(42) {
+  grid-column: span 2;
+}
+.keyboard__key:nth-child(54) {
+  grid-column: span 3;
+}
+.keyboard__key:nth-child(58) {
+  grid-column: span 7;
+}
+/* .keyboard__key:nth-child(55) {
+  grid-row: 5;
+} */
 .keyboard__key_more {
-  width: auto;
+  /* width: auto; */
+  /* grid-column: 13/13; */
 }
 .keyboard__key_row2 {
-  width: 78px;
+  /* width: 78px; */
 }
 .keyboard__key_row3 {
-  width: 94px;
+  /* width: 94px; */
 }
 .keyboard__key_row4 {
-  width: 130px;
+  /* width: 130px; */
 }
 .keyboard__key_space {
-  width: 431px;
+  /* width: 431px; */
 }
 .keyboard__arrow_up {
   height: 20px;
-  /* position: relative;
-  float: none; */
 }
 .keyboard__arrow_down {
   height: 20px;
