@@ -9,11 +9,77 @@ body.innerHTML = `
 
 const text = document.querySelector('.text');
 
+// const keyboard = [
+//   192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8, 9, 81, 87, 69, 82,
+//   84, 89, 85, 73, 79, 80, 219, 221, 220, 46, 20, 65, 83, 68, 70, 71, 72, 74, 75,
+//   76, 186, 222, 13, 16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 16, 17, 91,
+//   18, 32, 18, 17, 37, 38, 40, 39,
+// ];
 const keyboard = [
-  192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8, 9, 81, 87, 69, 82,
-  84, 89, 85, 73, 79, 80, 219, 221, 220, 46, 20, 65, 83, 68, 70, 71, 72, 74, 75,
-  76, 186, 222, 13, 16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 16, 17, 91,
-  18, 32, 18, 17, 37, 38, 40, 39,
+  'Backquote',
+  'Digit1',
+  'Digit2',
+  'Digit3',
+  'Digit4',
+  'Digit5',
+  'Digit6',
+  'Digit7',
+  'Digit8',
+  'Digit9',
+  'Digit0',
+  'Minus',
+  'Equal',
+  'Backspace',
+  'Tab',
+  'KeyQ',
+  'KeyW',
+  'KeyE',
+  'KeyR',
+  'KeyT',
+  'KeyY',
+  'KeyU',
+  'KeyI',
+  'KeyO',
+  'KeyP',
+  'BracketLeft',
+  'BracketRight',
+  'Backslash',
+  'Delete',
+  'CapsLock',
+  'KeyA',
+  'KeyS',
+  'KeyD',
+  'KeyF',
+  'KeyG',
+  'KeyH',
+  'KeyJ',
+  'KeyK',
+  'KeyL',
+  'Semicolon',
+  'Quote',
+  'Enter',
+  'ShiftLeft',
+  'KeyZ',
+  'KeyX',
+  'KeyC',
+  'KeyV',
+  'KeyB',
+  'KeyN',
+  'KeyM',
+  'Comma',
+  'Period',
+  'Slash',
+  'ShiftRight',
+  'ControlLeft',
+  'MetaLeft',
+  'AltLeft',
+  'Space',
+  'AltRight',
+  'ControlRight',
+  'ArrowLeft',
+  'ArrowUp',
+  'ArrowDown',
+  'ArrowRight',
 ];
 const letters = [
   '`',
@@ -81,10 +147,15 @@ const letters = [
   'ArrowDown',
   'ArrowRight',
 ];
+
+// function definesKeyCase(params) {}
+
 function init() {
   let out = '';
 
   for (let i = 0; i < letters.length; i += 1) {
+    // let keyRegister = letters[i].toLowerCase();
+
     if (letters[i] === 'ArrowLeft') {
       out += `
       <div class="keyboard__key" data="${keyboard[i]}">&#9668;</div>`;
@@ -105,13 +176,20 @@ function init() {
   ).innerHTML = `<div class="keyboard__line">${out}</div>`;
 }
 init();
+let key = '';
 document.onkeydown = function makesKeyActive(e) {
-  // keyboard.push(e.keyCode);
+  // keyboard.push(e.code);
+  key = e.key;
+  console.log(e);
   console.log(e.keyCode);
 
-  if (e.keyCode === 18 || e.keyCode === 17 || e.keyCode === 16) {
+  if (
+    e.code === 'AltLeft' ||
+    e.code === 'ControlLeft' ||
+    e.code === 'ShiftLeft'
+  ) {
     document
-      .querySelector(`.keyboard__key[data="${e.keyCode}"]`)
+      .querySelector(`.keyboard__key[data="${e.code}"]`)
       .classList.add('active');
   } else {
     document.querySelectorAll('.keyboard__key').forEach((element) => {
@@ -121,7 +199,7 @@ document.onkeydown = function makesKeyActive(e) {
     });
   }
   document
-    .querySelector(`.keyboard__key[data="${e.keyCode}"]`)
+    .querySelector(`.keyboard__key[data="${e.code}"]`)
     .classList.add('active');
 };
 
@@ -133,33 +211,36 @@ document.querySelectorAll('.keyboard__key').forEach((element) => {
       // console.log(event);
     });
 
-    const code = event.target.attributes.data.nodeValue;
+    const codeDate = event.target.attributes.data.nodeValue;
     if (
-      code !== '18' &&
-      code !== '17' &&
-      code !== '16' &&
-      code !== '20' &&
-      code !== '46' &&
-      code !== '37' &&
-      code !== '38' &&
-      code !== '39' &&
-      code !== '40' &&
-      code !== '9' &&
-      code !== '32' &&
-      code !== '13' &&
-      code !== '8'
+      codeDate !== 'AltLeft' &&
+      codeDate !== 'AltRight' &&
+      codeDate !== 'ControlLeft' &&
+      codeDate !== 'ControlRight' &&
+      codeDate !== 'ShiftLeft' &&
+      codeDate !== 'ShiftRight' &&
+      codeDate !== 'CapsLock' &&
+      codeDate !== 'Delete' &&
+      codeDate !== 'ArrowLeft' &&
+      codeDate !== 'ArrowUp' &&
+      codeDate !== 'ArrowRight' &&
+      codeDate !== 'ArrowDown' &&
+      codeDate !== 'Tab' &&
+      codeDate !== 'Space' &&
+      codeDate !== 'Enter' &&
+      codeDate !== 'Backspace'
     ) {
-      text.value += String.fromCharCode(code);
+      text.value += event.target.innerText;
     }
 
     const start = text.selectionStart;
     const end = text.selectionEnd;
 
-    if (event.target.innerHTML === 'Backspace') {
+    if (codeDate === 'Backspace') {
       const str = text.value;
       text.value = str.substring(0, str.length - 1);
     }
-    if (event.target.innerHTML === 'Del') {
+    if (codeDate === 'Delete') {
       text.value = text.value.slice(0, start) + text.value.slice(end);
       text.value = text.value.slice(0, start) + text.value.slice(start + 1);
     }
@@ -169,27 +250,26 @@ document.querySelectorAll('.keyboard__key').forEach((element) => {
       )}`;
       text.value = newValue;
     }
-    if (code === '32') {
+    if (codeDate === 'Space') {
       const newValue = `${text.value.slice(0, start)} ${text.value.slice(end)}`;
       text.value = newValue;
     }
-    if (code === '13') {
+    if (codeDate === 'Enter') {
       text.value = `${text.value.substring(0, start)}\n${text.value.substring(
         end,
         text.value.length
       )}`;
-      start;
     }
-    if (code === '38') {
+    if (codeDate === 'ArrowUp') {
       text.value += event.target.textContent;
     }
-    if (code === '40') {
+    if (codeDate === 'ArrowDown') {
       text.value += event.target.textContent;
     }
-    if (code === '37') {
+    if (codeDate === 'ArrowLeft') {
       text.value += event.target.textContent;
     }
-    if (code === '39') {
+    if (codeDate === 'ArrowRight') {
       text.value += event.target.textContent;
     }
     this.classList.add('active');
