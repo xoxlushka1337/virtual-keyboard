@@ -2,10 +2,12 @@ const body = document.querySelector('.body');
 
 body.innerHTML = `
 <div class="container">
-<textarea class="text" name="" id="" cols="30" rows="10"></textarea>
+<textarea class="text" id="area" cols="30" rows="10"></textarea>
 <div class="keyboard"></div>
 </div>
 `;
+
+const text = document.querySelector('.text');
 
 const keyboard = [
   192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8, 9, 81, 87, 69, 82,
@@ -85,35 +87,15 @@ function init() {
   for (let i = 0; i < letters.length; i += 1) {
     if (letters[i] === 'ArrowLeft') {
       out += `
-      <div class="keyboard__key" data="${keyboard[i]}">
-      <img
-        class="keyboard__pointer keyboard__pointer_left"
-        src="./imgs/pointer.png"
-        alt=""
-      />
-      </div>`;
+      <div class="keyboard__key" data="${keyboard[i]}">&#9668;</div>`;
     } else if (letters[i] === 'ArrowUp') {
       out += `<div class="keyboard__arrow">
-      <div class="keyboard__key keyboard__arrow_up" data="${keyboard[i]}">
-      <img class="keyboard__pointer " src="./imgs/pointer.png" alt="" />
-    </div>`;
+      <div class="keyboard__key keyboard__arrow_up" data="${keyboard[i]}">&#9650;</div>`;
     } else if (letters[i] === 'ArrowDown') {
-      out += `<div class="keyboard__key keyboard__arrow_down" data="${keyboard[i]}">
-      <img
-        class="keyboard__pointer keyboard__pointer_down"
-        src="./imgs/pointer.png"
-        alt=""
-      />
-    </div>
+      out += `<div class="keyboard__key keyboard__arrow_down" data="${keyboard[i]}">&#9660;</div>
     </div>`;
     } else if (letters[i] === 'ArrowRight') {
-      out += `<div class="keyboard__key" data="${keyboard[i]}">
-      <img
-        class="keyboard__pointer keyboard__pointer_right"
-        src="./imgs/pointer.png"
-        alt=""
-      />
-    </div>`;
+      out += `<div class="keyboard__key" data="${keyboard[i]}">&#9658;</div>`;
     } else {
       out += `<div class="keyboard__key" data="${keyboard[i]}">${letters[i]}</div>`;
     }
@@ -127,7 +109,7 @@ document.onkeydown = function makesKeyActive(e) {
   // keyboard.push(e.keyCode);
   console.log(e.keyCode);
 
-  if (e.keyCode == 18 || e.keyCode == 17 || e.keyCode == 16) {
+  if (e.keyCode === 18 || e.keyCode === 17 || e.keyCode === 16) {
     document
       .querySelector(`.keyboard__key[data="${e.keyCode}"]`)
       .classList.add('active');
@@ -142,3 +124,76 @@ document.onkeydown = function makesKeyActive(e) {
     .querySelector(`.keyboard__key[data="${e.keyCode}"]`)
     .classList.add('active');
 };
+
+document.querySelectorAll('.keyboard__key').forEach((element) => {
+  // eslint-disable-next-line no-param-reassign
+  element.onclick = function click(event) {
+    document.querySelectorAll('.keyboard__key').forEach((elements) => {
+      elements.classList.remove('active');
+      // console.log(event);
+    });
+
+    const code = event.target.attributes.data.nodeValue;
+    if (
+      code !== '18' &&
+      code !== '17' &&
+      code !== '16' &&
+      code !== '20' &&
+      code !== '46' &&
+      code !== '37' &&
+      code !== '38' &&
+      code !== '39' &&
+      code !== '40' &&
+      code !== '9' &&
+      code !== '32' &&
+      code !== '13' &&
+      code !== '8'
+    ) {
+      text.value += String.fromCharCode(code);
+    }
+
+    const start = text.selectionStart;
+    const end = text.selectionEnd;
+
+    if (event.target.innerHTML === 'Backspace') {
+      const str = text.value;
+      text.value = str.substring(0, str.length - 1);
+    }
+    if (event.target.innerHTML === 'Del') {
+      text.value = text.value.slice(0, start) + text.value.slice(end);
+      text.value = text.value.slice(0, start) + text.value.slice(start + 1);
+    }
+    if (event.target.innerHTML === 'Tab') {
+      const newValue = `${text.value.slice(0, start)}    ${text.value.slice(
+        end
+      )}`;
+      text.value = newValue;
+    }
+    if (code === '32') {
+      const newValue = `${text.value.slice(0, start)} ${text.value.slice(end)}`;
+      text.value = newValue;
+    }
+    if (code === '13') {
+      text.value = `${text.value.substring(0, start)}\n${text.value.substring(
+        end,
+        text.value.length
+      )}`;
+      start;
+    }
+    if (code === '38') {
+      text.value += event.target.textContent;
+    }
+    if (code === '40') {
+      text.value += event.target.textContent;
+    }
+    if (code === '37') {
+      text.value += event.target.textContent;
+    }
+    if (code === '39') {
+      text.value += event.target.textContent;
+    }
+    this.classList.add('active');
+  };
+
+  // console.log(element);
+});

@@ -23,11 +23,7 @@
   column-gap: 4px;
   flex-wrap: wrap;
 }
-.clearfix {
-  display: block;
-  width: 100%;
-  clear: both;
-}
+
 .keyboard__line:after {
   content: '';
   display: block;
@@ -83,18 +79,4 @@
 }
 .keyboard__arrow_down {
   height: 20px;
-}
-.keyboard__pointer {
-  width: 20px;
-  transform: rotate(22deg);
-  padding-left: 2px;
-}
-.keyboard__pointer_left {
-  transform: rotate(-69deg);
-}
-.keyboard__pointer_down {
-  transform: rotate(202deg);
-}
-.keyboard__pointer_right {
-  transform: rotate(112deg);
 }
