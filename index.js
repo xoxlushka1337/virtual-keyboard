@@ -1,10 +1,8 @@
 const body = document.querySelector('.body');
-const keyboardKey = document.querySelectorAll('.keyboard__key');
-
 body.innerHTML = `
 <div class="container">
 <textarea class="text" id="area" cols="30" rows="10"></textarea>
-<div class="keyboard"></div>
+<div class="keyboard"><div class="keyboard__line"></div></div>
 </div>
 `;
 
@@ -143,61 +141,90 @@ const letters = [
   'ArrowRight',
 ];
 
-let capsLockEnabled = false;
-
-function definesKeyCase(i) {
-  if (capsLockEnabled) {
-    return letters[i].toUpperCase();
-  }
-
-  return letters[i].toLowerCase();
-}
-
-function render() {
+for (let i = 0; i < letters.length; i += 1) {
   let out = '';
+  if (letters[i] === 'ArrowLeft') {
+    out = `<div class="keyboard__key" data="${keyboard[i]}">&#9668;</div>`;
+  } else if (letters[i] === 'ArrowRight') {
+    out = `<div class="keyboard__key" data="${keyboard[i]}">&#9658;</div>`;
+  } else if (letters[i] === 'ArrowUp') {
+    out = `<div class="keyboard__arrow">
+      <div class="keyboard__key keyboard__arrow_up" data="${
+        keyboard[i]
+      }">&#9650;</div>
+      <div class="keyboard__key keyboard__arrow_down" data="${
+        keyboard[i + 1]
+      }">&#9660;</div>
+    </div>`;
+    i += 1;
+  } else {
+    out = `<div class="keyboard__key" data="${keyboard[i]}">${letters[
+      i
+    ].toLowerCase()}</div>`;
+  }
+  document.querySelector('.keyboard__line').innerHTML += out;
+}
+const keyboardKey = document.querySelectorAll('.keyboard__key');
 
-  for (let i = 0; i < letters.length; i += 1) {
-    const keyRegister = definesKeyCase(i);
-    if (letters[i] === 'ArrowLeft') {
-      out += `<div class="keyboard__key" data="${keyboard[i]}">&#9668;</div>`;
-    } else if (letters[i] === 'ArrowUp') {
-      out += `<div class="keyboard__arrow"><div class="keyboard__key keyboard__arrow_up" data="${keyboard[i]}">&#9650;</div>`;
-    } else if (letters[i] === 'ArrowDown') {
-      out += `<div class="keyboard__key keyboard__arrow_down" data="${keyboard[i]}">&#9660;</div></div>`;
-    } else if (letters[i] === 'ArrowRight') {
-      out += `<div class="keyboard__key" data="${keyboard[i]}">&#9658;</div>`;
-    } else if (
-      letters[i] === 'Backspace' ||
-      letters[i] === 'Del' ||
-      letters[i] === 'CapsLock' ||
-      letters[i] === 'Shift' ||
-      letters[i] === 'Control' ||
-      letters[i] === 'Meta' ||
-      letters[i] === 'Enter' ||
-      letters[i] === 'Tab' ||
-      letters[i] === 'Alt'
-    ) {
-      out += `<div class="keyboard__key" data="${keyboard[i]}">${letters[i]}</div>`;
-    } else {
-      out += `<div class="keyboard__key" data="${keyboard[i]}">${keyRegister}</div>`;
+let capsLockEnabled = false;
+function renderCase() {
+  if (capsLockEnabled) {
+    for (let i = 0; i < keyboardKey.length; i += 1) {
+      if (
+        letters[i] !== 'Alt' &&
+        letters[i] !== 'Control' &&
+        letters[i] !== 'Shift' &&
+        letters[i] !== 'CapsLock' &&
+        letters[i] !== 'Del' &&
+        letters[i] !== 'ArrowLeft' &&
+        letters[i] !== 'ArrowUp' &&
+        letters[i] !== 'ArrowRight' &&
+        letters[i] !== 'ArrowDown' &&
+        letters[i] !== 'Tab' &&
+        letters[i] !== 'Space' &&
+        letters[i] !== 'Enter' &&
+        letters[i] !== 'Meta' &&
+        letters[i] !== 'Backspace'
+      ) {
+        keyboardKey[i].textContent = letters[i].toUpperCase();
+      }
+    }
+  } else {
+    for (let i = 0; i < keyboardKey.length; i += 1) {
+      if (
+        letters[i] !== 'Alt' &&
+        letters[i] !== 'Control' &&
+        letters[i] !== 'Shift' &&
+        letters[i] !== 'CapsLock' &&
+        letters[i] !== 'Del' &&
+        letters[i] !== 'ArrowLeft' &&
+        letters[i] !== 'ArrowUp' &&
+        letters[i] !== 'ArrowRight' &&
+        letters[i] !== 'ArrowDown' &&
+        letters[i] !== 'Tab' &&
+        letters[i] !== 'Space' &&
+        letters[i] !== 'Enter' &&
+        letters[i] !== 'Meta' &&
+        letters[i] !== 'Backspace'
+      ) {
+        keyboardKey[i].textContent = letters[i].toLowerCase();
+      }
     }
   }
-  // keyboardKey.forEach(key => {
-  //   key.textContent =
-  // });
-  document.querySelector(
-    '.keyboard'
-  ).innerHTML = `<div class="keyboard__line">${out}</div>`;
 }
-render();
 
 function toggleCapsLock(event) {
+  console.log(event);
+  // const codeDate = event.target.attributes.data.nodeValue;
   if (event.code === 'CapsLock') {
     capsLockEnabled = event.getModifierState('CapsLock');
-    event.stopPropagation();
-    render();
+    renderCase();
+  } else if (event.target.attributes.data.nodeValue === 'CapsLock') {
+    capsLockEnabled = !capsLockEnabled;
+    renderCase();
   }
 }
+document.addEventListener('click', toggleCapsLock);
 document.addEventListener('keydown', toggleCapsLock);
 
 document.onkeydown = function makesKeyActive(e) {
@@ -244,6 +271,7 @@ document.querySelectorAll('.keyboard__key').forEach((element) => {
       codeDate !== 'Tab' &&
       codeDate !== 'Space' &&
       codeDate !== 'Enter' &&
+      codeDate !== 'MetaLeft' &&
       codeDate !== 'Backspace'
     ) {
       text.value += event.target.innerText;
@@ -253,14 +281,14 @@ document.querySelectorAll('.keyboard__key').forEach((element) => {
     const end = text.selectionEnd;
 
     if (codeDate === 'Backspace') {
-      const str = text.value;
-      text.value = str.substring(0, str.length - 1);
+      text.value =
+        text.value.substring(0, start - 1) + text.value.substring(end);
     }
     if (codeDate === 'Delete') {
       text.value = text.value.slice(0, start) + text.value.slice(end);
       text.value = text.value.slice(0, start) + text.value.slice(start + 1);
     }
-    if (event.target.innerHTML === 'Tab') {
+    if (codeDate === 'Tab') {
       const newValue = `${text.value.slice(0, start)}    ${text.value.slice(
         end
       )}`;
