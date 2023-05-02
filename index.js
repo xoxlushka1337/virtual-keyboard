@@ -7,7 +7,7 @@ body.innerHTML = `
 `;
 
 const text = document.querySelector('.text');
-const keyboardKey = document.querySelectorAll('.keyboard__key');
+
 const keyboard = [
   'Backquote',
   'Digit1',
@@ -140,58 +140,58 @@ const letters = [
   'ArrowDown',
   'ArrowRight',
 ];
-const ruLetters = [
-  'Ё',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '0',
-  '-',
-  '=',
-  'Backspace',
-  'CapsLock',
-  'Ф',
-  'Ы',
-  'В',
-  'А',
-  'П',
-  'Р',
-  'О',
-  'Л',
-  'Д',
-  'Ж',
-  'Э',
-  'Enter',
-  'Shift',
-  'Я',
-  'Ч',
-  'С',
-  'М',
-  'И',
-  'Т',
-  'Ь',
-  'Б',
-  'Ю',
-  '.',
-  'Shift',
-  'Control',
-  'Meta',
-  'Alt',
-  ' ',
-  'Control',
-  'AltGraph',
-  'Control',
-  'ArrowLeft',
-  'ArrowUp',
-  'ArrowDown',
-  'ArrowRight',
-];
+// const ruLetters = [
+//   'Ё',
+//   '1',
+//   '2',
+//   '3',
+//   '4',
+//   '5',
+//   '6',
+//   '7',
+//   '8',
+//   '9',
+//   '0',
+//   '-',
+//   '=',
+//   'Backspace',
+//   'CapsLock',
+//   'Ф',
+//   'Ы',
+//   'В',
+//   'А',
+//   'П',
+//   'Р',
+//   'О',
+//   'Л',
+//   'Д',
+//   'Ж',
+//   'Э',
+//   'Enter',
+//   'Shift',
+//   'Я',
+//   'Ч',
+//   'С',
+//   'М',
+//   'И',
+//   'Т',
+//   'Ь',
+//   'Б',
+//   'Ю',
+//   '.',
+//   'Shift',
+//   'Control',
+//   'Meta',
+//   'Alt',
+//   ' ',
+//   'Control',
+//   'AltGraph',
+//   'Control',
+//   'ArrowLeft',
+//   'ArrowUp',
+//   'ArrowDown',
+//   'ArrowRight',
+// ];
 
 // function renderRussianLetters() {
 //   for (let i = 0; i < keyboardKey.length; i += 1) {
@@ -216,40 +216,40 @@ const ruLetters = [
 //   }
 // }
 // let keyLanguage = false;
-let flag = false;
+// let flag = false;
 
-window.onkeydown = function x(event) {
-  // console.log(event);
-  if (event.code === 'KeyH') {
-    flag = true;
-  }
-  if (event.code === 'KeyG' && flag) {
-    // eslint-disable-next-line no-use-before-define
-    // renderRussianLetters();
-    for (let i = 0; i < keyboardKey.length; i += 1) {
-      keyboardKey[i].textContent = ruLetters[i];
-      // if (
-      //   letters[i] !== 'Alt' &&
-      //   letters[i] !== 'Control' &&
-      //   letters[i] !== 'Shift' &&
-      //   letters[i] !== 'CapsLock' &&
-      //   letters[i] !== 'Del' &&
-      //   letters[i] !== 'ArrowLeft' &&
-      //   letters[i] !== 'ArrowUp' &&
-      //   letters[i] !== 'ArrowRight' &&
-      //   letters[i] !== 'ArrowDown' &&
-      //   letters[i] !== 'Tab' &&
-      //   letters[i] !== 'Space' &&
-      //   letters[i] !== 'Enter' &&
-      //   letters[i] !== 'Meta' &&
-      //   letters[i] !== 'Backspace'
-      // ) {
-      //   keyboardKey[i].textContent = ruLetters[i];
-      // }
-    }
-    // console.log('poi');
-  }
-};
+// window.onkeydown = function x(event) {
+//   // console.log(event);
+//   if (event.code === 'KeyH') {
+//     flag = true;
+//   }
+//   if (event.code === 'KeyG' && flag) {
+//     // eslint-disable-next-line no-use-before-define
+//     // renderRussianLetters();
+//     for (let i = 0; i < keyboardKey.length; i += 1) {
+//       keyboardKey[i].textContent = ruLetters[i];
+//       // if (
+//       //   letters[i] !== 'Alt' &&
+//       //   letters[i] !== 'Control' &&
+//       //   letters[i] !== 'Shift' &&
+//       //   letters[i] !== 'CapsLock' &&
+//       //   letters[i] !== 'Del' &&
+//       //   letters[i] !== 'ArrowLeft' &&
+//       //   letters[i] !== 'ArrowUp' &&
+//       //   letters[i] !== 'ArrowRight' &&
+//       //   letters[i] !== 'ArrowDown' &&
+//       //   letters[i] !== 'Tab' &&
+//       //   letters[i] !== 'Space' &&
+//       //   letters[i] !== 'Enter' &&
+//       //   letters[i] !== 'Meta' &&
+//       //   letters[i] !== 'Backspace'
+//       // ) {
+//       //   keyboardKey[i].textContent = ruLetters[i];
+//       // }
+//     }
+//     // console.log('poi');
+//   }
+// };
 
 for (let i = 0; i < letters.length; i += 1) {
   let out = '';
@@ -264,12 +264,12 @@ for (let i = 0; i < letters.length; i += 1) {
     </div>`;
     i += 1;
   } else {
-    out = `<div class="keyboard__key" data="${keyboard[i]}">${letters[
-      i
-    ].toLowerCase()}</div>`;
+    out = `<div class="keyboard__key" data="${keyboard[i]}">${letters[i].toLowerCase()}</div>`;
   }
   document.querySelector('.keyboard__line').innerHTML += out;
 }
+
+const keyboardKey = document.querySelectorAll('.keyboard__key');
 
 let capsLockEnabled = false;
 function renderCase() {
@@ -329,7 +329,10 @@ function toggleCapsLock(event) {
     renderCase();
   }
 }
-document.addEventListener('click', toggleCapsLock);
+// eslint-disable-next-line arrow-parens
+keyboardKey.forEach(element => {
+  element.addEventListener('click', toggleCapsLock);
+});
 document.addEventListener('keydown', toggleCapsLock);
 
 document.onkeydown = function makesKeyActive(e) {
