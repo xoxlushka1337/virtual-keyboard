@@ -7,7 +7,7 @@ body.innerHTML = `
 `;
 
 const text = document.querySelector('.text');
-
+const keyboardKey = document.querySelectorAll('.keyboard__key');
 const keyboard = [
   'Backquote',
   'Digit1',
@@ -140,6 +140,116 @@ const letters = [
   'ArrowDown',
   'ArrowRight',
 ];
+const ruLetters = [
+  'Ё',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+  '-',
+  '=',
+  'Backspace',
+  'CapsLock',
+  'Ф',
+  'Ы',
+  'В',
+  'А',
+  'П',
+  'Р',
+  'О',
+  'Л',
+  'Д',
+  'Ж',
+  'Э',
+  'Enter',
+  'Shift',
+  'Я',
+  'Ч',
+  'С',
+  'М',
+  'И',
+  'Т',
+  'Ь',
+  'Б',
+  'Ю',
+  '.',
+  'Shift',
+  'Control',
+  'Meta',
+  'Alt',
+  ' ',
+  'Control',
+  'AltGraph',
+  'Control',
+  'ArrowLeft',
+  'ArrowUp',
+  'ArrowDown',
+  'ArrowRight',
+];
+
+// function renderRussianLetters() {
+//   for (let i = 0; i < keyboardKey.length; i += 1) {
+//     if (
+//       letters[i] !== 'Alt' &&
+//       letters[i] !== 'Control' &&
+//       letters[i] !== 'Shift' &&
+//       letters[i] !== 'CapsLock' &&
+//       letters[i] !== 'Del' &&
+//       letters[i] !== 'ArrowLeft' &&
+//       letters[i] !== 'ArrowUp' &&
+//       letters[i] !== 'ArrowRight' &&
+//       letters[i] !== 'ArrowDown' &&
+//       letters[i] !== 'Tab' &&
+//       letters[i] !== 'Space' &&
+//       letters[i] !== 'Enter' &&
+//       letters[i] !== 'Meta' &&
+//       letters[i] !== 'Backspace'
+//     ) {
+//       keyboardKey[i].textContent = ruLetters[i];
+//     }
+//   }
+// }
+// let keyLanguage = false;
+let flag = false;
+
+window.onkeydown = function x(event) {
+  // console.log(event);
+  if (event.code === 'KeyH') {
+    flag = true;
+  }
+  if (event.code === 'KeyG' && flag) {
+    // eslint-disable-next-line no-use-before-define
+    // renderRussianLetters();
+    for (let i = 0; i < keyboardKey.length; i += 1) {
+      keyboardKey[i].textContent = ruLetters[i];
+      // if (
+      //   letters[i] !== 'Alt' &&
+      //   letters[i] !== 'Control' &&
+      //   letters[i] !== 'Shift' &&
+      //   letters[i] !== 'CapsLock' &&
+      //   letters[i] !== 'Del' &&
+      //   letters[i] !== 'ArrowLeft' &&
+      //   letters[i] !== 'ArrowUp' &&
+      //   letters[i] !== 'ArrowRight' &&
+      //   letters[i] !== 'ArrowDown' &&
+      //   letters[i] !== 'Tab' &&
+      //   letters[i] !== 'Space' &&
+      //   letters[i] !== 'Enter' &&
+      //   letters[i] !== 'Meta' &&
+      //   letters[i] !== 'Backspace'
+      // ) {
+      //   keyboardKey[i].textContent = ruLetters[i];
+      // }
+    }
+    // console.log('poi');
+  }
+};
 
 for (let i = 0; i < letters.length; i += 1) {
   let out = '';
@@ -149,12 +259,8 @@ for (let i = 0; i < letters.length; i += 1) {
     out = `<div class="keyboard__key" data="${keyboard[i]}">&#9658;</div>`;
   } else if (letters[i] === 'ArrowUp') {
     out = `<div class="keyboard__arrow">
-      <div class="keyboard__key keyboard__arrow_up" data="${
-        keyboard[i]
-      }">&#9650;</div>
-      <div class="keyboard__key keyboard__arrow_down" data="${
-        keyboard[i + 1]
-      }">&#9660;</div>
+      <div class="keyboard__key keyboard__arrow_up" data="${keyboard[i]}">&#9650;</div>
+      <div class="keyboard__key keyboard__arrow_down" data="${keyboard[i + 1]}">&#9660;</div>
     </div>`;
     i += 1;
   } else {
@@ -164,27 +270,26 @@ for (let i = 0; i < letters.length; i += 1) {
   }
   document.querySelector('.keyboard__line').innerHTML += out;
 }
-const keyboardKey = document.querySelectorAll('.keyboard__key');
 
 let capsLockEnabled = false;
 function renderCase() {
   if (capsLockEnabled) {
     for (let i = 0; i < keyboardKey.length; i += 1) {
       if (
-        letters[i] !== 'Alt' &&
-        letters[i] !== 'Control' &&
-        letters[i] !== 'Shift' &&
-        letters[i] !== 'CapsLock' &&
-        letters[i] !== 'Del' &&
-        letters[i] !== 'ArrowLeft' &&
-        letters[i] !== 'ArrowUp' &&
-        letters[i] !== 'ArrowRight' &&
-        letters[i] !== 'ArrowDown' &&
-        letters[i] !== 'Tab' &&
-        letters[i] !== 'Space' &&
-        letters[i] !== 'Enter' &&
-        letters[i] !== 'Meta' &&
-        letters[i] !== 'Backspace'
+        letters[i] !== 'Alt'
+        && letters[i] !== 'Control'
+        && letters[i] !== 'Shift'
+        && letters[i] !== 'CapsLock'
+        && letters[i] !== 'Del'
+        && letters[i] !== 'ArrowLeft'
+        && letters[i] !== 'ArrowUp'
+        && letters[i] !== 'ArrowRight'
+        && letters[i] !== 'ArrowDown'
+        && letters[i] !== 'Tab'
+        && letters[i] !== 'Space'
+        && letters[i] !== 'Enter'
+        && letters[i] !== 'Meta'
+        && letters[i] !== 'Backspace'
       ) {
         keyboardKey[i].textContent = letters[i].toUpperCase();
       }
@@ -192,20 +297,20 @@ function renderCase() {
   } else {
     for (let i = 0; i < keyboardKey.length; i += 1) {
       if (
-        letters[i] !== 'Alt' &&
-        letters[i] !== 'Control' &&
-        letters[i] !== 'Shift' &&
-        letters[i] !== 'CapsLock' &&
-        letters[i] !== 'Del' &&
-        letters[i] !== 'ArrowLeft' &&
-        letters[i] !== 'ArrowUp' &&
-        letters[i] !== 'ArrowRight' &&
-        letters[i] !== 'ArrowDown' &&
-        letters[i] !== 'Tab' &&
-        letters[i] !== 'Space' &&
-        letters[i] !== 'Enter' &&
-        letters[i] !== 'Meta' &&
-        letters[i] !== 'Backspace'
+        letters[i] !== 'Alt'
+        && letters[i] !== 'Control'
+        && letters[i] !== 'Shift'
+        && letters[i] !== 'CapsLock'
+        && letters[i] !== 'Del'
+        && letters[i] !== 'ArrowLeft'
+        && letters[i] !== 'ArrowUp'
+        && letters[i] !== 'ArrowRight'
+        && letters[i] !== 'ArrowDown'
+        && letters[i] !== 'Tab'
+        && letters[i] !== 'Space'
+        && letters[i] !== 'Enter'
+        && letters[i] !== 'Meta'
+        && letters[i] !== 'Backspace'
       ) {
         keyboardKey[i].textContent = letters[i].toLowerCase();
       }
@@ -214,7 +319,7 @@ function renderCase() {
 }
 
 function toggleCapsLock(event) {
-  console.log(event);
+  // console.log(event);
   // const codeDate = event.target.attributes.data.nodeValue;
   if (event.code === 'CapsLock') {
     capsLockEnabled = event.getModifierState('CapsLock');
@@ -229,9 +334,9 @@ document.addEventListener('keydown', toggleCapsLock);
 
 document.onkeydown = function makesKeyActive(e) {
   if (
-    e.code === 'AltLeft' ||
-    e.code === 'ControlLeft' ||
-    e.code === 'ShiftLeft'
+    e.code === 'AltLeft'
+    || e.code === 'ControlLeft'
+    || e.code === 'ShiftLeft'
   ) {
     document
       .querySelector(`.keyboard__key[data="${e.code}"]`)
@@ -256,23 +361,23 @@ document.querySelectorAll('.keyboard__key').forEach((element) => {
 
     const codeDate = event.target.attributes.data.nodeValue;
     if (
-      codeDate !== 'AltLeft' &&
-      codeDate !== 'AltRight' &&
-      codeDate !== 'ControlLeft' &&
-      codeDate !== 'ControlRight' &&
-      codeDate !== 'ShiftLeft' &&
-      codeDate !== 'ShiftRight' &&
-      codeDate !== 'CapsLock' &&
-      codeDate !== 'Delete' &&
-      codeDate !== 'ArrowLeft' &&
-      codeDate !== 'ArrowUp' &&
-      codeDate !== 'ArrowRight' &&
-      codeDate !== 'ArrowDown' &&
-      codeDate !== 'Tab' &&
-      codeDate !== 'Space' &&
-      codeDate !== 'Enter' &&
-      codeDate !== 'MetaLeft' &&
-      codeDate !== 'Backspace'
+      codeDate !== 'AltLeft'
+      && codeDate !== 'AltRight'
+      && codeDate !== 'ControlLeft'
+      && codeDate !== 'ControlRight'
+      && codeDate !== 'ShiftLeft'
+      && codeDate !== 'ShiftRight'
+      && codeDate !== 'CapsLock'
+      && codeDate !== 'Delete'
+      && codeDate !== 'ArrowLeft'
+      && codeDate !== 'ArrowUp'
+      && codeDate !== 'ArrowRight'
+      && codeDate !== 'ArrowDown'
+      && codeDate !== 'Tab'
+      && codeDate !== 'Space'
+      && codeDate !== 'Enter'
+      && codeDate !== 'MetaLeft'
+      && codeDate !== 'Backspace'
     ) {
       text.value += event.target.innerText;
     }
@@ -281,8 +386,7 @@ document.querySelectorAll('.keyboard__key').forEach((element) => {
     const end = text.selectionEnd;
 
     if (codeDate === 'Backspace') {
-      text.value =
-        text.value.substring(0, start - 1) + text.value.substring(end);
+      text.value = text.value.substring(0, start - 1) + text.value.substring(end);
     }
     if (codeDate === 'Delete') {
       text.value = text.value.slice(0, start) + text.value.slice(end);
@@ -290,7 +394,7 @@ document.querySelectorAll('.keyboard__key').forEach((element) => {
     }
     if (codeDate === 'Tab') {
       const newValue = `${text.value.slice(0, start)}    ${text.value.slice(
-        end
+        end,
       )}`;
       text.value = newValue;
     }
@@ -301,7 +405,7 @@ document.querySelectorAll('.keyboard__key').forEach((element) => {
     if (codeDate === 'Enter') {
       text.value = `${text.value.substring(0, start)}\n${text.value.substring(
         end,
-        text.value.length
+        text.value.length,
       )}`;
     }
     if (codeDate === 'ArrowUp') {
