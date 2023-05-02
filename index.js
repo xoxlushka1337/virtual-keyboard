@@ -3,6 +3,7 @@ body.innerHTML = `
 <div class="container">
 <textarea class="text" id="area" cols="30" rows="10"></textarea>
 <div class="keyboard"><div class="keyboard__line"></div></div>
+<div class="lang">Для смены языка используйте Shift + Alt</div>
 </div>
 `;
 
@@ -140,116 +141,72 @@ const letters = [
   'ArrowDown',
   'ArrowRight',
 ];
-// const ruLetters = [
-//   'Ё',
-//   '1',
-//   '2',
-//   '3',
-//   '4',
-//   '5',
-//   '6',
-//   '7',
-//   '8',
-//   '9',
-//   '0',
-//   '-',
-//   '=',
-//   'Backspace',
-//   'CapsLock',
-//   'Ф',
-//   'Ы',
-//   'В',
-//   'А',
-//   'П',
-//   'Р',
-//   'О',
-//   'Л',
-//   'Д',
-//   'Ж',
-//   'Э',
-//   'Enter',
-//   'Shift',
-//   'Я',
-//   'Ч',
-//   'С',
-//   'М',
-//   'И',
-//   'Т',
-//   'Ь',
-//   'Б',
-//   'Ю',
-//   '.',
-//   'Shift',
-//   'Control',
-//   'Meta',
-//   'Alt',
-//   ' ',
-//   'Control',
-//   'AltGraph',
-//   'Control',
-//   'ArrowLeft',
-//   'ArrowUp',
-//   'ArrowDown',
-//   'ArrowRight',
-// ];
-
-// function renderRussianLetters() {
-//   for (let i = 0; i < keyboardKey.length; i += 1) {
-//     if (
-//       letters[i] !== 'Alt' &&
-//       letters[i] !== 'Control' &&
-//       letters[i] !== 'Shift' &&
-//       letters[i] !== 'CapsLock' &&
-//       letters[i] !== 'Del' &&
-//       letters[i] !== 'ArrowLeft' &&
-//       letters[i] !== 'ArrowUp' &&
-//       letters[i] !== 'ArrowRight' &&
-//       letters[i] !== 'ArrowDown' &&
-//       letters[i] !== 'Tab' &&
-//       letters[i] !== 'Space' &&
-//       letters[i] !== 'Enter' &&
-//       letters[i] !== 'Meta' &&
-//       letters[i] !== 'Backspace'
-//     ) {
-//       keyboardKey[i].textContent = ruLetters[i];
-//     }
-//   }
-// }
-// let keyLanguage = false;
-// let flag = false;
-
-// window.onkeydown = function x(event) {
-//   // console.log(event);
-//   if (event.code === 'KeyH') {
-//     flag = true;
-//   }
-//   if (event.code === 'KeyG' && flag) {
-//     // eslint-disable-next-line no-use-before-define
-//     // renderRussianLetters();
-//     for (let i = 0; i < keyboardKey.length; i += 1) {
-//       keyboardKey[i].textContent = ruLetters[i];
-//       // if (
-//       //   letters[i] !== 'Alt' &&
-//       //   letters[i] !== 'Control' &&
-//       //   letters[i] !== 'Shift' &&
-//       //   letters[i] !== 'CapsLock' &&
-//       //   letters[i] !== 'Del' &&
-//       //   letters[i] !== 'ArrowLeft' &&
-//       //   letters[i] !== 'ArrowUp' &&
-//       //   letters[i] !== 'ArrowRight' &&
-//       //   letters[i] !== 'ArrowDown' &&
-//       //   letters[i] !== 'Tab' &&
-//       //   letters[i] !== 'Space' &&
-//       //   letters[i] !== 'Enter' &&
-//       //   letters[i] !== 'Meta' &&
-//       //   letters[i] !== 'Backspace'
-//       // ) {
-//       //   keyboardKey[i].textContent = ruLetters[i];
-//       // }
-//     }
-//     // console.log('poi');
-//   }
-// };
+const ruLetters = [
+  'Ё',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+  '-',
+  '=',
+  'Backspace',
+  'Tab',
+  'Й',
+  'Ц',
+  'У',
+  'К',
+  'Е',
+  'Н',
+  'Г',
+  'Ш',
+  'Щ',
+  'З',
+  'Х',
+  'Ъ',
+  '\\',
+  'CapsLock',
+  'CapsLock',
+  'Ф',
+  'Ы',
+  'В',
+  'А',
+  'П',
+  'Р',
+  'О',
+  'Л',
+  'Д',
+  'Ж',
+  'Э',
+  'Enter',
+  'Shift',
+  'Я',
+  'Ч',
+  'С',
+  'М',
+  'И',
+  'Т',
+  'Ь',
+  'Б',
+  'Ю',
+  '.',
+  'Shift',
+  'Control',
+  'Meta',
+  'Alt',
+  ' ',
+  'Control',
+  'Alt',
+  'Control',
+  'ArrowLeft',
+  'ArrowUp',
+  'ArrowRight',
+];
 
 for (let i = 0; i < letters.length; i += 1) {
   let out = '';
@@ -259,17 +216,94 @@ for (let i = 0; i < letters.length; i += 1) {
     out = `<div class="keyboard__key" data="${keyboard[i]}">&#9658;</div>`;
   } else if (letters[i] === 'ArrowUp') {
     out = `<div class="keyboard__arrow">
-      <div class="keyboard__key keyboard__arrow_up" data="${keyboard[i]}">&#9650;</div>
-      <div class="keyboard__key keyboard__arrow_down" data="${keyboard[i + 1]}">&#9660;</div>
+      <div class="keyboard__key keyboard__arrow_up" data="${
+  keyboard[i]
+}">&#9650;</div>
+      <div class="keyboard__key keyboard__arrow_down" data="${
+  keyboard[i + 1]
+}">&#9660;</div>
     </div>`;
     i += 1;
   } else {
-    out = `<div class="keyboard__key" data="${keyboard[i]}">${letters[i].toLowerCase()}</div>`;
+    out = `<div class="keyboard__key" data="${keyboard[i]}">${letters[
+      i
+    ].toLowerCase()}</div>`;
   }
   document.querySelector('.keyboard__line').innerHTML += out;
 }
-
+let letterLanguage = letters;
 const keyboardKey = document.querySelectorAll('.keyboard__key');
+let keyLanguage = false;
+
+const returnObj = JSON.parse(localStorage.getItem('myKey')); // спарсим его обратно объект
+
+function renderRussianLetters() {
+  for (let i = 0; i < keyboardKey.length; i += 1) {
+    if (keyLanguage) {
+      letterLanguage = ruLetters;
+      if (
+        letters[i] !== 'Alt'
+        && letters[i] !== 'Control'
+        && letters[i] !== 'Shift'
+        && letters[i] !== 'CapsLock'
+        && letters[i] !== 'Del'
+        && letters[i] !== 'ArrowLeft'
+        && letters[i] !== 'ArrowUp'
+        && letters[i] !== 'ArrowRight'
+        && letters[i] !== 'ArrowDown'
+        && letters[i] !== 'Tab'
+        && letters[i] !== 'Space'
+        && letters[i] !== 'Enter'
+        && letters[i] !== 'Meta'
+        && letters[i] !== 'Backspace'
+      ) {
+        keyboardKey[i].textContent = ruLetters[i].toLowerCase();
+        const serialObj = JSON.stringify(keyLanguage); // сериализуем его в строчку
+        localStorage.setItem('myKey', serialObj); // запишем его в хранилище по ключу "myKey"
+      }
+    } else if (
+      letters[i] !== 'Alt'
+      && letters[i] !== 'Control'
+      && letters[i] !== 'Shift'
+      && letters[i] !== 'CapsLock'
+      && letters[i] !== 'Del'
+      && letters[i] !== 'ArrowLeft'
+      && letters[i] !== 'ArrowUp'
+      && letters[i] !== 'ArrowRight'
+      && letters[i] !== 'ArrowDown'
+      && letters[i] !== 'Tab'
+      && letters[i] !== 'Space'
+      && letters[i] !== 'Enter'
+      && letters[i] !== 'Meta'
+      && letters[i] !== 'Backspace'
+    ) {
+      letterLanguage = letters;
+      keyboardKey[i].textContent = letters[i].toLowerCase();
+      const serialObj = JSON.stringify(keyLanguage); // сериализуем его в строчку
+      localStorage.setItem('myKey', serialObj); // запишем его в хранилище по ключу "myKey"
+    }
+  }
+}
+if (localStorage.getItem('myKey') !== null) {
+  keyLanguage = returnObj;
+  renderRussianLetters();
+} else {
+  const serialObj = JSON.stringify(keyLanguage); // сериализуем его в строчку
+  localStorage.setItem('myKey', serialObj); // запишем его в хранилище по ключу "myKey"
+}
+let flag = false;
+window.onkeydown = function x(event) {
+  if (event.code === 'AltLeft') {
+    flag = true;
+    // keyLanguage = !keyLanguage;
+  }
+  if (event.code === 'ShiftLeft' && flag) {
+    flag = false;
+    keyLanguage = !keyLanguage;
+    // keyLanguage = event.getModifierState('n');
+    renderRussianLetters();
+  }
+};
 
 let capsLockEnabled = false;
 function renderCase() {
@@ -291,7 +325,7 @@ function renderCase() {
         && letters[i] !== 'Meta'
         && letters[i] !== 'Backspace'
       ) {
-        keyboardKey[i].textContent = letters[i].toUpperCase();
+        keyboardKey[i].textContent = letterLanguage[i].toUpperCase();
       }
     }
   } else {
@@ -312,7 +346,7 @@ function renderCase() {
         && letters[i] !== 'Meta'
         && letters[i] !== 'Backspace'
       ) {
-        keyboardKey[i].textContent = letters[i].toLowerCase();
+        keyboardKey[i].textContent = letterLanguage[i].toLowerCase();
       }
     }
   }
@@ -330,7 +364,7 @@ function toggleCapsLock(event) {
   }
 }
 // eslint-disable-next-line arrow-parens
-keyboardKey.forEach(element => {
+keyboardKey.forEach((element) => {
   element.addEventListener('click', toggleCapsLock);
 });
 document.addEventListener('keydown', toggleCapsLock);
