@@ -353,19 +353,21 @@ function renderCase() {
 }
 
 function toggleCapsLock(event) {
-  // console.log(event);
-  // const codeDate = event.target.attributes.data.nodeValue;
   if (event.code === 'CapsLock') {
     capsLockEnabled = event.getModifierState('CapsLock');
     renderCase();
-  } else if (event.target.attributes.data.nodeValue === 'CapsLock') {
+  }
+}
+
+function clickCapsLock(event) {
+  if (event.target.attributes.data.nodeValue === 'CapsLock') {
     capsLockEnabled = !capsLockEnabled;
     renderCase();
   }
 }
-// eslint-disable-next-line arrow-parens
+
 keyboardKey.forEach((element) => {
-  element.addEventListener('click', toggleCapsLock);
+  element.addEventListener('click', clickCapsLock);
 });
 document.addEventListener('keydown', toggleCapsLock);
 
@@ -388,12 +390,23 @@ document.onkeydown = function makesKeyActive(e) {
     .classList.add('active');
 };
 
+// function makesKeyActive() {
+//   document.addEventListener('keydown', (e) => {
+//     document.querySelector(`.keyboard__key[data="${e.code}"]`).classList.add('active');
+//     document.addEventListener('keyup', () => {
+//       // document.querySelectorAll('.keyboard__key').forEach((element) => {
+//       // document.classList.remove('active');
+//       document.querySelector(`.keyboard__key[data="${e.code}"]`).classList.add('active');
+//       // });
+//     });
+//   });
+// }
+// makesKeyActive();
+
 document.querySelectorAll('.keyboard__key').forEach((element) => {
-  // eslint-disable-next-line no-param-reassign
-  element.onclick = function click(event) {
+  element.addEventListener('click', (event) => {
     document.querySelectorAll('.keyboard__key').forEach((elements) => {
       elements.classList.remove('active');
-      // console.log(event);
     });
 
     const codeDate = event.target.attributes.data.nodeValue;
@@ -457,6 +470,17 @@ document.querySelectorAll('.keyboard__key').forEach((element) => {
     if (codeDate === 'ArrowRight') {
       text.value += event.target.textContent;
     }
-    this.classList.add('active');
-  };
+    element.classList.add('active');
+  });
 });
+
+function toggleTab(event) {
+  const start = text.selectionStart;
+  const end = text.selectionEnd;
+  if (event.code === 'Tab') {
+    const newValue = `${text.value.slice(0, start)}    ${text.value.slice(end)}`;
+    text.value = newValue;
+  }
+}
+
+document.addEventListener('keydown', toggleTab);
