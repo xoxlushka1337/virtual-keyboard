@@ -237,7 +237,7 @@ let keyLanguage = false;
 
 const returnObj = JSON.parse(localStorage.getItem('myKey')); // спарсим его обратно объект
 
-function renderRussianLetters() {
+const renderRussianLetters = () => {
   for (let i = 0; i < keyboardKey.length; i += 1) {
     if (keyLanguage) {
       letterLanguage = ruLetters;
@@ -283,7 +283,8 @@ function renderRussianLetters() {
       localStorage.setItem('myKey', serialObj); // запишем его в хранилище по ключу "myKey"
     }
   }
-}
+};
+
 if (localStorage.getItem('myKey') !== null) {
   keyLanguage = returnObj;
   renderRussianLetters();
@@ -291,8 +292,9 @@ if (localStorage.getItem('myKey') !== null) {
   const serialObj = JSON.stringify(keyLanguage); // сериализуем его в строчку
   localStorage.setItem('myKey', serialObj); // запишем его в хранилище по ключу "myKey"
 }
+
 let flag = false;
-window.onkeydown = function x(event) {
+window.onkeydown = (event) => {
   if (event.code === 'AltLeft') {
     flag = true;
     // keyLanguage = !keyLanguage;
@@ -306,7 +308,7 @@ window.onkeydown = function x(event) {
 };
 
 let capsLockEnabled = false;
-function renderCase() {
+const renderCase = () => {
   if (capsLockEnabled) {
     for (let i = 0; i < keyboardKey.length; i += 1) {
       if (
@@ -350,28 +352,29 @@ function renderCase() {
       }
     }
   }
-}
+};
 
-function toggleCapsLock(event) {
+const toggleCapsLock = (event) => {
   if (event.code === 'CapsLock') {
     capsLockEnabled = event.getModifierState('CapsLock');
     renderCase();
   }
-}
+};
 
-function clickCapsLock(event) {
+const clickCapsLock = (event) => {
   if (event.target.attributes.data.nodeValue === 'CapsLock') {
     capsLockEnabled = !capsLockEnabled;
     renderCase();
   }
-}
+};
 
 keyboardKey.forEach((element) => {
   element.addEventListener('click', clickCapsLock);
 });
 document.addEventListener('keydown', toggleCapsLock);
 
-document.onkeydown = function makesKeyActive(e) {
+const makesKeyActive = (e) => {
+  // console.log(e);
   if (
     e.code === 'AltLeft'
     || e.code === 'ControlLeft'
@@ -385,12 +388,22 @@ document.onkeydown = function makesKeyActive(e) {
       element.classList.remove('active');
     });
   }
+
+  // const indexCode = keyboard.indexOf(e.code);
+  // if (keyLanguage) {
+  //   renderCase();
+  //   text.value += ruLetters[indexCode].toLowerCase();
+  // } else {
+  //   renderCase();
+  //   text.value += letters[indexCode].toLowerCase();
+  // }
   document
     .querySelector(`.keyboard__key[data="${e.code}"]`)
     .classList.add('active');
 };
+document.addEventListener('keydown', makesKeyActive);
 
-// function makesKeyActive() {
+// const makesKeyActive () => {
 //   document.addEventListener('keydown', (e) => {
 //     document.querySelector(`.keyboard__key[data="${e.code}"]`).classList.add('active');
 //     document.addEventListener('keyup', () => {
@@ -474,13 +487,13 @@ document.querySelectorAll('.keyboard__key').forEach((element) => {
   });
 });
 
-function toggleTab(event) {
+const toggleTab = (event) => {
   const start = text.selectionStart;
   const end = text.selectionEnd;
   if (event.code === 'Tab') {
     const newValue = `${text.value.slice(0, start)}    ${text.value.slice(end)}`;
     text.value = newValue;
   }
-}
+};
 
 document.addEventListener('keydown', toggleTab);
